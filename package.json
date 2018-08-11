@@ -1,0 +1,48 @@
+{
+  "name": "sample-node-exp-pos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./app.js",
+    "dbreset": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
+    "dbclear": "sequelize db:migrate:undo:all",
+    "dbmigrate": "sequelize db:migrate",
+    "dbseed": "sequelize db:seed:all",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@sendgrid/client": "^6.2.1",
+    "async": "^2.6.0",
+    "aws-sdk": "^2.228.1",
+    "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
+    "braintree": "^2.9.0",
+    "express": "^4.16.3",
+    "file-type": "^7.6.0",
+    "ioredis": "^3.2.2",
+    "joi": "^13.1.2",
+    "jsonwebtoken": "^8.2.1",
+    "lodash": "^4.17.5",
+    "mime-types": "^2.1.18",
+    "morgan": "^1.9.0",
+    "ms": "^2.1.1",
+    "multer": "^1.3.0",
+    "npm": "^5.8.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "pg": "^7.4.1",
+    "pg-hstore": "^2.3.2",
+    "read-chunk": "^2.1.0",
+    "sequelize": "^4.37.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.2"
+  }
+}

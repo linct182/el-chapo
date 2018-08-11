@@ -1,0 +1,10 @@
+{
+    "version": "ABC",
+    "salt-rounds": "10",
+    "username": "rybjrjtc",
+    "password": "WA_2S0sCCBo2DTi2q7KQ3vYTZIN0xE_K",
+    "database": "rybjrjtc",
+    "host": "baasu.db.elephantsql.com",
+    "dialect": "postgres",
+    "operatorsAliases": false
+}
