@@ -53,7 +53,9 @@ module.exports = (app) => {
 
   //Users
   app.post('/admin/registration', usersController.createAdmin);
-  app.post('/users/signin', requireSignin, usersController.signIn);
+  app.post('/admin/signin', requireSignin, usersController.signIn);
+
+  // Products
 
 
 
@@ -70,8 +72,6 @@ module.exports = (app) => {
 
 
   app.post('/list/users', requireAuth, AdminValidators.IsAdmin, usersController.listCustomers);
-
-  app.post('/users/signin', requireSignin, usersController.signIn);
   app.get('/users/verify/:user/:key', redisServices.verifyLink);
   app.post('/users/contactus', usersController.contactUs);
   
