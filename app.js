@@ -7,6 +7,8 @@ const PORT = HTTP_PORT;
 // Set up the express app
 const app = express();
 
+app.use('/public', express.static(__dirname + '/server/uploads'))
+
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
@@ -36,3 +38,7 @@ app.post('*', (req, res) => {
 app.listen(PORT, () => {
   console.log('listening to port', PORT)
 });
+
+
+
+
