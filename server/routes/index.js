@@ -1,4 +1,8 @@
 const usersController = require('../controllers').users;
+const productsController = require('../controllers').products;
+
+
+
 const userTypesController = require('../controllers').userTypes;
 const paymentUserController = require('../controllers').paymentuser;
 const customersController = require('../controllers').customers;
@@ -51,15 +55,20 @@ module.exports = (app) => {
     message: 'Welcome to the Todos API!',
   }));
 
+
+  // START NG GAMIT NATIN NA API MAC
+
   //Users
   app.post('/admin/registration', requireAuth, usersController.createAdmin);
   app.post('/admin/signin', requireSignin, usersController.signIn);
 
   // Products
+  // app.get('/products/list', requireAuth, productsController.signIn);
+  app.post('/products/add', requireAuth, productsController.addProduct);
+  // app.post('/products/edit/:id', requireAuth, productsController.signIn);
+  // app.post('/products/delete/:id', requireAuth, productsController.signIn);
 
-
-
-
+  // END NG GAMIT NATIN NA API MAC
 
 
 
