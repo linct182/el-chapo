@@ -21,7 +21,7 @@ const fs = require('fs');
 const { all } = require('bluebird');
 const Braintree = require('../services/braintree');
 const string = require('../utils/string');
-const Redis = require('../utils/redis');
+// const Redis = require('../utils/redis');
 
 
 module.exports = {
