@@ -1,15 +1,15 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => 
-    queryInterface.bulkInsert('user_types', [{
-      role: 'Admin',
+  up: (queryInterface, Sequelize) =>
+    queryInterface.bulkInsert('product_types', [{
+      name: 'Normal',
       createdAt: new Date(),
       updatedAt: new Date()
     },
     {
-      role: 'Customer',
+      name: 'Promo',
       createdAt: new Date(),
       updatedAt: new Date()
     }], {}),
   down: (queryInterface, Sequelize) =>
-    queryInterface.bulkDelete('user_types', null, {})
+    queryInterface.bulkDelete('product_types', null, {})
 };

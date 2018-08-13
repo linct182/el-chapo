@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const TodoItem = sequelize.define('TodoItem', {
+  const products = sequelize.define('products', {
     content: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -10,12 +10,12 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  TodoItem.associate = (models) => {
-    TodoItem.belongsTo(models.Todo, {
-      foreignKey: 'todoId',
+  products.associate = (models) => {
+    products.belongsTo(models.product_types, {
+      foreignKey: 'type_id',
       onDelete: 'CASCADE',
     });
   };
 
-  return TodoItem;
+  return products;
 };
