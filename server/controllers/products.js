@@ -12,7 +12,7 @@ module.exports = {
       },
       filename: (req, file, cb) => {
         var ext = path.extname(file.originalname);
-        cb(null, cryptoServices.hashString(`${new Date().toISOString()}${file.originalname}`) + '.' + ext);
+        cb(null, cryptoServices.hashString(`${new Date().toISOString()}${file.originalname}`) + ext);
       }
     });
     
@@ -34,12 +34,32 @@ module.exports = {
       if (err) {
         return res.end('Error: ' + err.message);
       } else {
-        // console.log(req.body);
+        let details_image = '';
+        let img_url = '';
         req.files.forEach(function (item) {
-          // console.log(item);
-          // move your file to destination
+          if(item.fieldname == 'details_image'){
+            details_image = item.filename;
+          }
+
+          if (item.fieldname == 'photo') {
+            img_url = item.filename;
+          }
         });
-        res.end('File uploaded');
+        console.log('XXXXXXXXXXXXXXXXXXX', details_image)
+
+        // After successful upload insert product to database
+        return Products.create({
+          name: req.body.name,
+          description: req.body.description,
+          price: req.body.price,
+          sale_price: req.body.sale_price,
+          img_url: img_url,
+          details_image: details_image
+        }).then(result => {
+          res.status(200).json(result);
+        }).catch(err => {
+          res.status(500).json(err);
+        });
       }
     });
   },
