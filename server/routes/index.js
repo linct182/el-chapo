@@ -52,7 +52,7 @@ module.exports = (app) => {
   }));
 
   //Users
-  app.post('/admin/registration', usersController.createAdmin);
+  app.post('/admin/registration', requireAuth, usersController.createAdmin);
   app.post('/admin/signin', requireSignin, usersController.signIn);
 
   // Products
