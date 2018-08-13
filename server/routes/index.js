@@ -25,7 +25,7 @@ const passportService = require('../services/passport');
 const captchaService = require('../services/captcha');
 const passport = require('passport');
 const multer = require('multer');
-const redisServices = require('../services/redis');
+// const redisServices = require('../services/redis');
 
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireSignin = passport.authenticate('local', { session: false });
@@ -81,7 +81,7 @@ module.exports = (app) => {
 
 
   app.post('/list/users', requireAuth, AdminValidators.IsAdmin, usersController.listCustomers);
-  app.get('/users/verify/:user/:key', redisServices.verifyLink);
+  // app.get('/users/verify/:user/:key', redisServices.verifyLink);
   app.post('/users/contactus', usersController.contactUs);
   
   app.get('/customer/uploadkey', requireAuth, customersController.getUploadKey);
