@@ -63,10 +63,13 @@ module.exports = {
       }
     });
   },
-  list(req, res) {
-    return Todo
-      .all()
-      .then(todos => res.status(200).send(todos))
+  listProducts(req, res) {
+    return Products
+      .findAll({
+        where: { is_deleted: false },
+        order: [['id', 'DESC']]
+      })
+      .then(result => res.status(200).send(result))
       .catch(error => res.status(400).send(error));
   },
   listWithItems(req, res) {
