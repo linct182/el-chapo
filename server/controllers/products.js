@@ -124,19 +124,21 @@ module.exports = {
       })
       .catch((error) => res.status(400).send(error));
   },
-  destroy(req, res) {
-    return Todo
-      .findById(req.params.todoId)
-      .then(todo => {
-        if (!todo) {
+  deleteProduct(req, res) {
+    return Products
+      .findById(parseInt(req.params.id))
+      .then(product => {
+        if (!product) {
           return res.status(400).send({
-            message: 'Todo Not Found',
+            message: 'Product Not Found',
           });
         }
-        return todo
-          .destroy()
-          .then(() => res.status(200).send({ message: 'Todo deleted successfully.' }))
-          .catch(error => res.status(400).send(error));
+        return product
+          .update({
+            is_deleted: true,
+          })
+          .then(() => res.status(200).send({ message: 'Product deleted successfully.' }))
+          .catch(error => res.status(400).send('hey'));
       })
       .catch(error => res.status(400).send(error));
   },

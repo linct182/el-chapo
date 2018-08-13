@@ -66,7 +66,7 @@ module.exports = (app) => {
   app.get('/products/list', productsController.listProducts);
   app.post('/products/add', requireAuth, productsController.addProduct);
   // app.post('/products/edit/:id', requireAuth, productsController.signIn);
-  // app.post('/products/delete/:id', requireAuth, productsController.signIn);
+  app.get('/products/delete/:id', requireAuth, productsController.deleteProduct);
 
   // END NG GAMIT NATIN NA API MAC
 
