@@ -39,10 +39,6 @@ const AttachmentsValidators = require('../validations/attachments');
 const PlansValidators = require('../validations/plans');
 const MessageValidators = require('../validations/message');
 
-
-// Only for testing
-const { DummyUser } = require('../validations/simulateAuth');
-
 module.exports = (app) => {
   references(app),
   testers(app),
@@ -56,10 +52,22 @@ module.exports = (app) => {
   }));
 
   //Users
+  app.post('/admin/registration', usersController.createAdmin);
+  app.post('/users/signin', requireSignin, usersController.signIn);
+
+
+
+
+
+
+
+
+
+
+
   // app.get('/list/users/:userTypeId', requireAuth, AdminValidators.IsAdmin, userTypesController.listCustomers)
   app.get('/profile', requireAuth, usersController.GetProfile);
 
-  app.post('/profile', DummyUser, usersController.GeneratePassword, usersController.UpdateProfile);
 
   app.post('/list/users', requireAuth, AdminValidators.IsAdmin, usersController.listCustomers);
 
@@ -67,8 +75,6 @@ module.exports = (app) => {
   app.get('/users/verify/:user/:key', redisServices.verifyLink);
   app.post('/users/contactus', usersController.contactUs);
   
-  // Customers
-  app.post('/customer/registration', captchaService.verify, usersController.registerCustomer);
   app.get('/customer/uploadkey', requireAuth, customersController.getUploadKey);
   app.post('/customer/submitcase', requireAuth, customersController.createCase);
 

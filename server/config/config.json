@@ -1,8 +1,6 @@
 {
     "version": "ABC",
     "salt-rounds": 10,
-
-    //elphantSQL config
     "host": "elmer.db.elephantsql.com",
     "database": "zthbwtaz",    
     "username": "zthbwtaz",
