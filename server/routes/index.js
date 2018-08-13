@@ -1,4 +1,8 @@
 const usersController = require('../controllers').users;
+const productsController = require('../controllers').products;
+
+
+
 const userTypesController = require('../controllers').userTypes;
 const paymentUserController = require('../controllers').paymentuser;
 const customersController = require('../controllers').customers;
@@ -21,7 +25,7 @@ const passportService = require('../services/passport');
 const captchaService = require('../services/captcha');
 const passport = require('passport');
 const multer = require('multer');
-const redisServices = require('../services/redis');
+// const redisServices = require('../services/redis');
 
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireSignin = passport.authenticate('local', { session: false });
@@ -39,10 +43,6 @@ const AttachmentsValidators = require('../validations/attachments');
 const PlansValidators = require('../validations/plans');
 const MessageValidators = require('../validations/message');
 
-
-// Only for testing
-const { DummyUser } = require('../validations/simulateAuth');
-
 module.exports = (app) => {
   references(app),
   testers(app),
@@ -55,20 +55,35 @@ module.exports = (app) => {
     message: 'Welcome to the Todos API!',
   }));
 
+
+  // START NG GAMIT NATIN NA API MAC
+
   //Users
+  app.post('/admin/registration', requireAuth, usersController.createAdmin);
+  app.post('/admin/signin', requireSignin, usersController.signIn);
+
+  // Products
+  app.get('/products/list', productsController.listProducts);
+  app.post('/products/add', requireAuth, productsController.addProduct);
+  // app.post('/products/edit/:id', requireAuth, productsController.signIn);
+  app.get('/products/delete/:id', requireAuth, productsController.deleteProduct);
+
+  // END NG GAMIT NATIN NA API MAC
+
+
+
+
+
+
+
   // app.get('/list/users/:userTypeId', requireAuth, AdminValidators.IsAdmin, userTypesController.listCustomers)
   app.get('/profile', requireAuth, usersController.GetProfile);
 
-  app.post('/profile', DummyUser, usersController.GeneratePassword, usersController.UpdateProfile);
 
   app.post('/list/users', requireAuth, AdminValidators.IsAdmin, usersController.listCustomers);
-
-  app.post('/users/signin', requireSignin, usersController.signIn);
-  app.get('/users/verify/:user/:key', redisServices.verifyLink);
+  // app.get('/users/verify/:user/:key', redisServices.verifyLink);
   app.post('/users/contactus', usersController.contactUs);
   
-  // Customers
-  app.post('/customer/registration', captchaService.verify, usersController.registerCustomer);
   app.get('/customer/uploadkey', requireAuth, customersController.getUploadKey);
   app.post('/customer/submitcase', requireAuth, customersController.createCase);
 

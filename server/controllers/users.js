@@ -2,6 +2,7 @@ const Users = require('../models').users;
 const ms = require('ms');
 const Joi = require('joi');
 const SQLize = require('sequelize');
+const Op = SQLize.Op;
 
 const secret = require('../config/config.json')['secret'];
 const config = require('../config/config.json');
@@ -23,14 +24,12 @@ const tokenForUser = user => {
   }
 }
 module.exports = {
-  registerCustomer(req, res) {
+  createAdmin(req, res) {
     // Joi validation
     const schema = Joi.object().keys({
-      forename: Joi.string().regex(/^[a-zA-Z0-9\.\s]{2,30}$/, (err) => "HELLO").required(),
-      surname: Joi.string().regex(/^[a-zA-Z0-9\.\s]{2,30}$/).required(),
+      username: Joi.string().regex(/^[a-zA-Z0-9\.\s]{2,30}$/).required(),
       password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
       email: Joi.string().email().required(),
-      phone: Joi.string().regex(/^[a-zA-Z0-9\.\s\-\+]{2,30}$/).required(),
     });
 
     // You can also pass a callback which will be called synchronously with the validation result.
@@ -42,52 +41,36 @@ module.exports = {
       return Users
         .find({
           where: {
-            email: req.body.email
+            [Op.or]: [{ email: req.body.email }, { username: req.body.username }]
           }
         })
         .then(user => {
           // check if user already exist
           if (user) {
             return res.status(200).send({
-              message: 'Email already exist',
+              message: 'Email or username already exist',
             });
           }
 
           // encrypt password
           const encrypted = cryptoServices.generatePassword(req.body.password);
 
-          return Braintree.CreateUser({
-            forename: req.body.forename,
-            surname: req.body.surname,
-            email: req.body.email,
-          }, (err, customer_id) => {
-            if (err) {
-              throw err;
-              return false;
-            }
-            Users.create({
-                user_type_id: config.customer_id,
-                forename: req.body.forename,
-                surname: req.body.surname,
+          return Users.create({
+                user_type_id: 1,
+                username: req.body.username,
                 email: req.body.email,
                 password: encrypted,
-                phone_number: req.body.phone,
-                braintree_customer_id: customer_id,
               })
               .then(user => {
-                redisServices.sendLink(user, req.get('host'));
                 
                 res.status(200).json({
                   user: {
                     id: user.id,
                     user_type: user.user_type_id,
-                    forename: user.forename,
-                    surname: user.surname
                   }, token: tokenForUser(user.id)
                 });
               })
               .catch(error => res.status(400).send(error));
-          })
         })
         .catch(error => res.status(400).send('error'));  
      });

@@ -7,11 +7,11 @@ const LocalStrategy = require ('passport-local');
 
 //Create local strategy
 const localOptions = { usernameField: 'email' };
-const localLogin = new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+const localLogin = new LocalStrategy({ usernameField: 'username' }, (username, password, done) => {
 // Verify this email and password, call done with the user
 // if it is the correct email and password
 // otherwise, call done with false
-  Users.findOne({ where: { email: email, is_verified: true }, attributes: ['id', ['user_type_id', 'user_type'], 'password', 'forename', 'surname', 'email', 'phone_number', 'city', 'country', 'bank_no']})
+  Users.findOne({ where: { username: username, is_verified: true }, attributes: ['id', ['user_type_id', 'user_type'], 'password', 'username', 'email']})
     .then( user => {
       if(!user) {
         return done(null, false);

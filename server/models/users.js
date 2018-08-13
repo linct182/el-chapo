@@ -5,13 +5,10 @@ const saltRounds = require('../config/config.json')['salt-rounds'];
 module.exports = (sequelize, DataTypes) => {
 
   const users = sequelize.define('users', {
-    forename: {
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    surname: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      unique: true
     },
     email: {
       type: DataTypes.STRING,
@@ -22,30 +19,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    phone_number: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    city: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    country: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    braintree_customer_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
-    bank_no: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
     is_verified: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: false
+      defaultValue: true
     }
   });
 
@@ -64,16 +41,6 @@ module.exports = (sequelize, DataTypes) => {
     users.belongsTo(models.user_types, {
       foreignKey: 'user_type_id',
       onDelete: 'CASCADE',
-    });
-
-    users.hasMany(models.customer_payments, {
-      foreignKey: 'user_id',
-      as: 'payments',
-    });
-
-    users.hasMany(models.case_feedbacks, {
-      foreignKey: 'user_id',
-      as: 'feedbacks',
     });
   };
   return users;

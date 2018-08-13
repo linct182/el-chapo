@@ -1,12 +1,13 @@
 {
     "version": "ABC",
     "salt-rounds": 10,
-    "host": "baasu.db.elephantsql.com",
-    "database": "rybjrjtc",    
-    "username": "rybjrjtc",
-    "password": "WA_2S0sCCBo2DTi2q7KQ3vYTZIN0xE_K",
-    "HTTP_PORT": "3030",
+    "host": "elmer.db.elephantsql.com",
+    "database": "zthbwtaz",    
+    "username": "zthbwtaz",
+    "password": "qVus_fUQocKIK70pqYdc_Gwxg7WMZVpD",
+    
     "dialect": "postgres",
+    "HTTP_PORT": "3030",
     "operatorsAliases": false,
     "secret": "catsRuleTheWorld",
     "jwtExpire": "1h",

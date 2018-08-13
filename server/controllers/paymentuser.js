@@ -4,10 +4,8 @@ const CustomerPayments = require('../models/index').customer_payments;
 const Cases = require('../models/index').cases;
 const Config = require('../config/config.json');
 const WebHooks = require('../models/index').web_hooks;
-const Redis = require('../utils/redis');
+// const Redis = require('../utils/redis');
 
-// Queuer requires redis.
-const Queuer = require('../../batch/index')(Redis);
 module.exports = {
     CreateTestUser: (req, res) => {
         return Braintree.CreateUser({

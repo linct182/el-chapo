@@ -1,4 +1,4 @@
-const Redis = require('../services/redis');
+// const Redis = require('../services/redis');
 module.exports = {
     IsAttachmentValid(req, res, next) {
         return Redis.GetDownloadInfo(req.params.signature, (err, data) => {
