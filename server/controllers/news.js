@@ -85,13 +85,13 @@ module.exports = {
       })
       .catch(error => res.status(400).send(error));
   },
-  updateProduct(req, res) {
-    return Products
+  updateNews(req, res) {
+    return News
       .findById(parseInt(req.params.id))
-      .then(product => {
-        if (!product) {
+      .then(news => {
+        if (!news) {
           return res.status(404).send({
-            message: 'Product Not Found',
+            message: 'News Not Found',
           });
         }
 
@@ -123,12 +123,8 @@ module.exports = {
           if (err) {
             return res.end('Error: ' + err.message);
           } else {
-            let details_image = '';
             let img_url = '';
             req.files.forEach(function (item) {
-              if (item.fieldname == 'details_image') {
-                details_image = item.filename;
-              }
 
               if (item.fieldname == 'photo') {
                 img_url = item.filename;
@@ -136,39 +132,34 @@ module.exports = {
             });
 
             // After successful upload insert product to database
-            return product
+            return news
             .update({
-              type_id: parseInt(req.body.type_id) || 1,
-              name: req.body.name,
+              title: req.body.title,
               description: req.body.description,
-              price: req.body.price,
-              sale_price: req.body.sale_price,
               img_url: img_url || '',
-              details_image: details_image || '',
-              promo_expiry: req.body.promo_expiry || null
             })
-            .then(() => res.status(200).send(product))  // Send back the updated todo.
+            .then(() => res.status(200).send(news))  // Send back the updated todo.
             .catch((error) => res.status(400).send(error));
           }
         });
       })
       .catch((error) => res.status(400).send(error));
   },
-  deleteProduct(req, res) {
-    return Products
+  deleteNews(req, res) {
+    return News
       .findById(parseInt(req.params.id))
-      .then(product => {
-        if (!product) {
+      .then(news => {
+        if (!news) {
           return res.status(400).send({
-            message: 'Product Not Found',
+            message: 'News Not Found',
           });
         }
-        return product
+        return news
           .update({
             is_deleted: true,
           })
-          .then(() => res.status(200).send({ message: 'Product deleted successfully.' }))
-          .catch(error => res.status(400).send('hey'));
+          .then(() => res.status(200).send({ message: 'News deleted successfully.' }))
+          .catch(error => res.status(400).send('error'));
       })
       .catch(error => res.status(400).send(error));
   },

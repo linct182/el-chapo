@@ -74,6 +74,8 @@ module.exports = (app) => {
   app.get('/news/details/:id', newsController.getNewsDetails);
   app.get('/news/list', newsController.listNews);
   app.post('/news/add', requireAuth, newsController.addNews);
+  app.get('/news/delete/:id', requireAuth, newsController.deleteNews);
+  app.post('/news/update/:id', requireAuth, newsController.updateNews);
   
   
   // END NG GAMIT NATIN NA API MAC
