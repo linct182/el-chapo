@@ -71,6 +71,15 @@ module.exports = {
       .then(result => res.status(200).send(result))
       .catch(error => res.status(400).send(error));
   },
+  listPromos(req, res) {
+    return Products
+      .findAll({
+        where: { is_deleted: false, type_id: 0 },
+        order: [['id', 'DESC']]
+      })
+      .then(result => res.status(200).send(result))
+      .catch(error => res.status(400).send(error));
+  },
   listWithItems(req, res) {
     return Todo
       .findAll({

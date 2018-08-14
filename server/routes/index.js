@@ -65,6 +65,7 @@ module.exports = (app) => {
   // Products
   app.get('/products/detail/:id', productsController.retrieveProduct);
   app.get('/products/list', productsController.listProducts);
+  app.get('/products/promos', productsController.listPromos);
   app.post('/products/add', requireAuth, productsController.addProduct);
   // app.post('/products/edit/:id', requireAuth, productsController.signIn);
   app.get('/products/delete/:id', requireAuth, productsController.deleteProduct);
