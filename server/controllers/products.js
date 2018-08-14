@@ -53,7 +53,8 @@ module.exports = {
           price: req.body.price,
           sale_price: req.body.sale_price,
           img_url: img_url || '',
-          details_image: details_image || ''
+          details_image: details_image || '',
+          type_id: parseInt(req.body.type_id) || 1
         }).then(result => {
           res.status(200).json(result);
         }).catch(err => {
@@ -157,7 +158,7 @@ module.exports = {
             // After successful upload insert product to database
             return product
             .update({
-              type_id: req.body.type_id || 1,
+              type_id: parseInt(req.body.type_id) || 1,
               name: req.body.name,
               description: req.body.description,
               price: req.body.price,

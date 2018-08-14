@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 0,
     },
+    promo_expiry: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
     sale_price: {
       type: DataTypes.DECIMAL,
       allowNull: false,
