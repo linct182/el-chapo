@@ -91,21 +91,16 @@ module.exports = {
       .then(todos => res.status(200).send(todos))
       .catch(error => res.status(400).send(error));
   },
-  retrieveProduct(req, res) {
-    return Todo
-      .findById(req.params.todoId, {
-        include: [{
-          model: TodoItem,
-          as: 'todoItems',
-        }],
-      })
-      .then(todo => {
-        if (!todo) {
+  getProductDetails(req, res) {
+    return Products
+      .findById(parseInt(req.params.id))
+      .then(product => {
+        if (!product) {
           return res.status(404).send({
-            message: 'Todo Not Found',
+            message: 'Product Not Found',
           });
         }
-        return res.status(200).send(todo);
+        return res.status(200).send(product);
       })
       .catch(error => res.status(400).send(error));
   },

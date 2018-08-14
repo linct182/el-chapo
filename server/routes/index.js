@@ -63,7 +63,7 @@ module.exports = (app) => {
   app.post('/admin/signin', requireSignin, usersController.signIn);
 
   // Products
-  app.get('/products/detail/:id', productsController.retrieveProduct);
+  app.get('/products/details/:id', productsController.getProductDetails);
   app.get('/products/list', productsController.listProducts);
   app.get('/products/promos', productsController.listPromos);
   app.post('/products/add', requireAuth, productsController.addProduct);
