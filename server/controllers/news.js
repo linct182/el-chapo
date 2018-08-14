@@ -54,8 +54,8 @@ module.exports = {
       }
     });
   },
-  listProducts(req, res) {
-    return Products
+  listNews(req, res) {
+    return News
       .findAll({
         where: { is_deleted: false },
         order: [['id', 'DESC']]
@@ -72,16 +72,16 @@ module.exports = {
       .then(result => res.status(200).send(result))
       .catch(error => res.status(400).send(error));
   },
-  getProductDetails(req, res) {
-    return Products
+  getNewsDetails(req, res) {
+    return News
       .findById(parseInt(req.params.id))
-      .then(product => {
-        if (!product) {
+      .then(news => {
+        if (!news) {
           return res.status(404).send({
-            message: 'Product Not Found',
+            message: 'News Not Found',
           });
         }
-        return res.status(200).send(product);
+        return res.status(200).send(news);
       })
       .catch(error => res.status(400).send(error));
   },

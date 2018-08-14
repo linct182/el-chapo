@@ -71,7 +71,11 @@ module.exports = (app) => {
   app.get('/products/delete/:id', requireAuth, productsController.deleteProduct);
 
   // News
+  app.get('/news/details/:id', newsController.getNewsDetails);
+  app.get('/news/list', newsController.listNews);
   app.post('/news/add', requireAuth, newsController.addNews);
+  
+  
   // END NG GAMIT NATIN NA API MAC
 
 
