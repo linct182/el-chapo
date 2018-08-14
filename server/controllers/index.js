@@ -15,6 +15,7 @@ const paymentcases = require('./paymentcases');
 const paymentrequests = require('./paymentrequests');
 const analytics = require('./analytics');
 const products = require('./products');
+const news = require('./news');
 
 const paymentuser = require('./paymentuser');
 const customers = require('./customers');
@@ -38,5 +39,6 @@ module.exports = {
   paymentcases,
   paymentrequests,
   analytics,
-  products
+  products,
+  news
 };

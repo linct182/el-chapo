@@ -1,11 +1,11 @@
-const Products = require('../models').products;
+const News = require('../models').news;
 const multer = require('multer');
 const cryptoServices = require('../services/crypto');
 const config = require('../config/config.json');
 const path = require('path');
 
 module.exports = {
-  addProduct(req, res) {
+  addNews(req, res) {
     const storage = multer.diskStorage({
       destination: (req, file, cb) => {
         cb(null, config.app_uploads_path);
@@ -34,28 +34,18 @@ module.exports = {
       if (err) {
         return res.end('Error: ' + err.message);
       } else {
-        let details_image = '';
         let img_url = '';
         req.files.forEach(function (item) {
-          if(item.fieldname == 'details_image'){
-            details_image = item.filename;
-          }
-
           if (item.fieldname == 'photo') {
             img_url = item.filename;
           }
         });
 
         // After successful upload insert product to database
-        return Products.create({
-          name: req.body.name,
+        return News.create({
+          title: req.body.title,
           description: req.body.description,
-          price: req.body.price,
-          sale_price: req.body.sale_price,
           img_url: img_url || '',
-          details_image: details_image || '',
-          type_id: parseInt(req.body.type_id) || 1,
-          promo_expiry: req.body.promo_expiry || null
         }).then(result => {
           res.status(200).json(result);
         }).catch(err => {
