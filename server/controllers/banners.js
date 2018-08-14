@@ -1,11 +1,11 @@
-const News = require('../models').news;
+const Banners = require('../models').banners;
 const multer = require('multer');
 const cryptoServices = require('../services/crypto');
 const config = require('../config/config.json');
 const path = require('path');
 
 module.exports = {
-  addNews(req, res) {
+  addBanner(req, res) {
     const storage = multer.diskStorage({
       destination: (req, file, cb) => {
         cb(null, config.app_uploads_path);
@@ -42,10 +42,11 @@ module.exports = {
         });
 
         // After successful upload insert product to database
-        return News.create({
+        return Banners.create({
           title: req.body.title,
           description: req.body.description,
           img_url: img_url || '',
+          is_home: req.body.is_home
         }).then(result => {
           res.status(200).json(result);
         }).catch(err => {
@@ -54,44 +55,44 @@ module.exports = {
       }
     });
   },
-  listNews(req, res) {
-    return News
+  listHomeBanners(req, res) {
+    return Banners
       .findAll({
-        where: { is_deleted: false },
+        where: { is_deleted: false, is_home: true },
         order: [['id', 'DESC']]
       })
       .then(result => res.status(200).send(result))
       .catch(error => res.status(400).send(error));
   },
-  listPromos(req, res) {
-    return Products
+  listPageBanners(req, res) {
+    return Banners
       .findAll({
-        where: { is_deleted: false, type_id: 2 },
+        where: { is_deleted: false, is_home: false },
         order: [['id', 'DESC']]
       })
       .then(result => res.status(200).send(result))
       .catch(error => res.status(400).send(error));
   },
-  getNewsDetails(req, res) {
-    return News
+  getBannerDetails(req, res) {
+    return Banners
       .findById(parseInt(req.params.id))
-      .then(news => {
-        if (!news) {
+      .then(banners => {
+        if (!banners) {
           return res.status(404).send({
-            message: 'News Not Found',
+            message: 'Banner Not Found',
           });
         }
-        return res.status(200).send(news);
+        return res.status(200).send(banners);
       })
       .catch(error => res.status(400).send(error));
   },
-  updateNews(req, res) {
-    return News
+  updateBanner(req, res) {
+    return Banners
       .findById(parseInt(req.params.id))
-      .then(news => {
-        if (!news) {
+      .then(banners => {
+        if (!banners) {
           return res.status(404).send({
-            message: 'News Not Found',
+            message: 'Banner Not Found',
           });
         }
 
@@ -132,33 +133,34 @@ module.exports = {
             });
 
             // After successful upload insert product to database
-            return news
+            return banners
             .update({
               title: req.body.title,
               description: req.body.description,
               img_url: img_url || '',
+              is_home: req.body.is_home
             })
-            .then(() => res.status(200).send(news))  // Send back the updated todo.
+            .then(() => res.status(200).send(banners))  // Send back the updated todo.
             .catch((error) => res.status(400).send(error));
           }
         });
       })
       .catch((error) => res.status(400).send(error));
   },
-  deleteNews(req, res) {
-    return News
+  deleteBanner(req, res) {
+    return Banners
       .findById(parseInt(req.params.id))
-      .then(news => {
-        if (!news) {
+      .then(banners => {
+        if (!banners) {
           return res.status(400).send({
-            message: 'News Not Found',
+            message: 'Banner Not Found',
           });
         }
-        return news
+        return banners
           .update({
             is_deleted: true,
           })
-          .then(() => res.status(200).send({ message: 'News deleted successfully.' }))
+          .then(() => res.status(200).send({ message: 'Banner deleted successfully.' }))
           .catch(error => res.status(400).send('error'));
       })
       .catch(error => res.status(400).send(error));

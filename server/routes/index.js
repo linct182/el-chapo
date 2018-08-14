@@ -1,7 +1,7 @@
 const usersController = require('../controllers').users;
 const productsController = require('../controllers').products;
 const newsController = require('../controllers').news;
-
+const bannersController = require('../controllers').banners;
 
 const userTypesController = require('../controllers').userTypes;
 const paymentUserController = require('../controllers').paymentuser;
@@ -59,7 +59,7 @@ module.exports = (app) => {
   // START NG GAMIT NATIN NA API MAC
 
   //Users
-  app.post('/admin/registration', requireAuth, usersController.createAdmin);
+  app.post('/admin/registration', usersController.createAdmin);
   app.post('/admin/signin', requireSignin, usersController.signIn);
 
   // Products
@@ -77,6 +77,13 @@ module.exports = (app) => {
   app.get('/news/delete/:id', requireAuth, newsController.deleteNews);
   app.post('/news/update/:id', requireAuth, newsController.updateNews);
   
+  // Banners
+  app.get('/banners/details/:id', bannersController.getBannerDetails);
+  app.get('/banners/listhome', bannersController.listHomeBanners);
+  app.get('/banners/listpage', bannersController.listPageBanners);
+  app.post('/banners/add', requireAuth, bannersController.addBanner);
+  app.get('/banners/delete/:id', requireAuth, bannersController.deleteBanner);
+  app.post('/banners/update/:id', requireAuth, bannersController.updateBanner);
   
   // END NG GAMIT NATIN NA API MAC
 

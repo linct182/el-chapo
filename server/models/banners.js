@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const banner = sequelize.define('banner', {
+  const banners = sequelize.define('banners', {
     title: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    is_home: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
   });
-  return banner;
+  return banners;
 };
