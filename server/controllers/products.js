@@ -45,7 +45,6 @@ module.exports = {
             img_url = item.filename;
           }
         });
-        console.log('XXXXXXXXXXXXXXXXXXX', details_image)
 
         // After successful upload insert product to database
         return Products.create({
@@ -53,8 +52,8 @@ module.exports = {
           description: req.body.description,
           price: req.body.price,
           sale_price: req.body.sale_price,
-          img_url: img_url,
-          details_image: details_image
+          img_url: img_url || '',
+          details_image: details_image || ''
         }).then(result => {
           res.status(200).json(result);
         }).catch(err => {
@@ -83,7 +82,7 @@ module.exports = {
       .then(todos => res.status(200).send(todos))
       .catch(error => res.status(400).send(error));
   },
-  retrieve(req, res) {
+  retrieveProduct(req, res) {
     return Todo
       .findById(req.params.todoId, {
         include: [{
@@ -101,7 +100,7 @@ module.exports = {
       })
       .catch(error => res.status(400).send(error));
   },
-  update(req, res) {
+  updateProduct(req, res) {
     return Todo
       .findById(req.params.todoId, {
         include: [{
