@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     img_url: {
@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL,
       allowNull: false,
       defaultValue: 0,
+    },
+    promo_expiry: {
+      type: DataTypes.DATE,
+      allowNull: true,
     },
     sale_price: {
       type: DataTypes.DECIMAL,

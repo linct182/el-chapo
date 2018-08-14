@@ -1,6 +1,6 @@
 const usersController = require('../controllers').users;
 const productsController = require('../controllers').products;
-
+const newsController = require('../controllers').news;
 
 
 const userTypesController = require('../controllers').userTypes;
@@ -63,11 +63,19 @@ module.exports = (app) => {
   app.post('/admin/signin', requireSignin, usersController.signIn);
 
   // Products
+  app.get('/products/details/:id', productsController.getProductDetails);
   app.get('/products/list', productsController.listProducts);
+  app.get('/products/promos', productsController.listPromos);
   app.post('/products/add', requireAuth, productsController.addProduct);
-  // app.post('/products/edit/:id', requireAuth, productsController.signIn);
+  app.post('/products/update/:id', requireAuth, productsController.updateProduct);
   app.get('/products/delete/:id', requireAuth, productsController.deleteProduct);
 
+  // News
+  app.get('/news/details/:id', newsController.getNewsDetails);
+  app.get('/news/list', newsController.listNews);
+  app.post('/news/add', requireAuth, newsController.addNews);
+  
+  
   // END NG GAMIT NATIN NA API MAC
 
 
