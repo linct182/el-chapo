@@ -74,7 +74,7 @@ module.exports = {
   listPromos(req, res) {
     return Products
       .findAll({
-        where: { is_deleted: false, type_id: 0 },
+        where: { is_deleted: false, type_id: 2 },
         order: [['id', 'DESC']]
       })
       .then(result => res.status(200).send(result))
