@@ -113,13 +113,18 @@ module.exports = {
               }
             });
 
+            let params = {
+              about_us_title: req.body.title,
+              about_us_description: req.body.description
+            }
+
+            if(img_url != '') {
+              params = { ...params, about_us_img: img_url}
+            }
+
             // After successful upload insert product to database
             return settings
-              .update({
-                about_us_title: req.body.title || '',
-                about_us_description: req.body.description || '',
-                about_us_img: img_url || '',
-              })
+              .update(params)
               .then(() => res.status(200).send(settings))  // Send back the updated todo.
               .catch((error) => res.status(400).send(error));
           }
