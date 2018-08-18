@@ -86,7 +86,9 @@ module.exports = (app) => {
   app.post('/banners/update/:id', requireAuth, bannersController.updateBanner);
   
   // END NG GAMIT NATIN NA API MAC
-
+  // app.get('/settings/list', requireAuth, bannersController.addBanner);
+  // app.post('/settings/logo', requireAuth, bannersController.addBanner);
+  // app.post('/settings/aboutus', requireAuth, bannersController.addBanner);
 
 
 

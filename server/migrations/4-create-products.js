@@ -25,6 +25,12 @@ module.exports = {
       },
       sale_price: {
         type: Sequelize.DECIMAL,
+        allowNull: false,
+        defaultValue: 0,
+      },
+      quantity: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
         defaultValue: 0,
       },
       details_image: {
