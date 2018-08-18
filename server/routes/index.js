@@ -60,7 +60,7 @@ module.exports = (app) => {
   // START NG GAMIT NATIN NA API MAC
 
   //Users
-  app.post('/admin/registration', requireAuth, usersController.createAdmin);
+  app.post('/admin/registration', usersController.createAdmin);
   app.post('/admin/signin', requireSignin, usersController.signIn);
 
   // Products

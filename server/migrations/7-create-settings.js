@@ -15,8 +15,16 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      about_us: {
+      about_us_title: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      about_us_description: {
         type: Sequelize.TEXT,
+        allowNull: false,
+      },
+      about_us_img: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       createdAt: {

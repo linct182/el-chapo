@@ -8,8 +8,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    about_us: {
+    about_us_title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    about_us_description: {
       type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    about_us_img: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
   });

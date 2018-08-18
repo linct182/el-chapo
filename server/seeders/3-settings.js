@@ -3,7 +3,9 @@ module.exports = {
     queryInterface.bulkInsert('settings', [{
       title: 'settings-1',
       logo_url: '',
-      about_us: '',
+      about_us_title: '',
+      about_us_description: '',
+      about_us_img: '',
       createdAt: new Date(),
       updatedAt: new Date()
     }], {}),
