@@ -7,6 +7,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      title: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       logo_url: {
         type: Sequelize.STRING,
         allowNull: false,
