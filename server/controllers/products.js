@@ -55,7 +55,8 @@ module.exports = {
           img_url: img_url || '',
           details_image: details_image || '',
           type_id: parseInt(req.body.type_id) || 1,
-          promo_expiry: req.body.promo_expiry || null
+          promo_expiry: req.body.promo_expiry || null,
+          quantity: req.body.quantity || 0
         }).then(result => {
           res.status(200).json(result);
         }).catch(err => {
@@ -155,7 +156,8 @@ module.exports = {
               sale_price: req.body.sale_price,
               img_url: img_url || '',
               details_image: details_image || '',
-              promo_expiry: req.body.promo_expiry || null
+              promo_expiry: req.body.promo_expiry || null,
+              quantity: req.body.quantity || 0
             })
             .then(() => res.status(200).send(product))  // Send back the updated todo.
             .catch((error) => res.status(400).send(error));

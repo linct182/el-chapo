@@ -17,6 +17,7 @@ const analytics = require('./analytics');
 const products = require('./products');
 const news = require('./news');
 const banners = require('./banners');
+const settings = require('./settings');
 
 const paymentuser = require('./paymentuser');
 const customers = require('./customers');
@@ -42,5 +43,6 @@ module.exports = {
   analytics,
   products,
   news,
-  banners
+  banners,
+  settings
 };
