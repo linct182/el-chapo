@@ -68,7 +68,7 @@ module.exports = {
   listProducts(req, res) {
     return Products
       .findAll({
-        where: { is_deleted: false },
+        where: { is_deleted: false, type_id: 1 },
         order: [['id', 'DESC']]
       })
       .then(result => res.status(200).send(result))
@@ -146,19 +146,27 @@ module.exports = {
               }
             });
 
-            // After successful upload insert product to database
-            return product
-            .update({
+            let params = {
               type_id: parseInt(req.body.type_id) || 1,
-              name: req.body.name,
-              description: req.body.description,
-              price: req.body.price,
-              sale_price: req.body.sale_price,
-              img_url: img_url || '',
-              details_image: details_image || '',
+              name: req.body.name || '',
+              description: req.body.description || '',
+              price: req.body.price || 0,
+              sale_price: req.body.sale_price || 0,
               promo_expiry: req.body.promo_expiry || null,
               quantity: req.body.quantity || 0
-            })
+            }
+
+            if(img_url != '') {
+              params = {...params, img_url: img_url}
+            }
+
+            if (details_image != '') {
+              params = { ...params, details_image: details_image }
+            }
+
+            // After successful upload insert product to database
+            return product
+            .update(params)
             .then(() => res.status(200).send(product))  // Send back the updated todo.
             .catch((error) => res.status(400).send(error));
           }
