@@ -16,7 +16,7 @@ module.exports = {
     client.request(request)
       .then(([response, body]) => {
         console.log(response, body);
-        res.send(body);
+        res.send(response);
       })
       .catch(error => {
         console.log(error);
@@ -24,6 +24,7 @@ module.exports = {
       });
   },
   sendMail(data) {
+    
     let body = {
       "personalizations": [{
         "to": [{ "email": data.email_to, "name": data.name_to }]
@@ -35,7 +36,7 @@ module.exports = {
         "value": data.content
       }]
     }
-
+    
     const request = {
       method: 'POST',
       url: '/v3/mail/send',
@@ -44,11 +45,10 @@ module.exports = {
     
     return client.request(request)
       .then(([response, body]) => {
-        console.log('-----------------------------Email sent')
         return 'Email sent successfully';
       })
       .catch(error => {
-        console.log('-----------------------Error Sending email');
+        console.log('-----------------------Error Sending email', error);
         return 'Error sending an email';
       });
   }

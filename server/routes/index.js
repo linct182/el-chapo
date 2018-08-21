@@ -85,11 +85,17 @@ module.exports = (app) => {
   app.post('/banners/add', requireAuth, bannersController.addBanner);
   app.get('/banners/delete/:id', requireAuth, bannersController.deleteBanner);
   app.post('/banners/update/:id', requireAuth, bannersController.updateBanner);
+
+  // Contact Us
+  app.post('/contactus', messagesController.SendMessage);
   
-  // END NG GAMIT NATIN NA API MAC
+  // Settings
   app.get('/settings/list', settingsController.getSettings);
   app.post('/settings/logo', requireAuth, settingsController.updateLogo);
   app.post('/settings/aboutus', requireAuth, settingsController.updateAboutUs);
+
+  // END NG GAMIT NATIN NA API MAC
+  
 
 
 
