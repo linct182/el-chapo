@@ -1,6 +1,7 @@
 const usersController = require('../controllers').users;
 const productsController = require('../controllers').products;
 const newsController = require('../controllers').news;
+const storesController = require('../controllers').stores;
 const bannersController = require('../controllers').banners;
 const settingsController = require('../controllers').settings;
 
@@ -77,6 +78,13 @@ module.exports = (app) => {
   app.post('/news/add', requireAuth, newsController.addNews);
   app.get('/news/delete/:id', requireAuth, newsController.deleteNews);
   app.post('/news/update/:id', requireAuth, newsController.updateNews);
+
+  // Stores
+  app.get('/stores/details/:id', storesController.getStoresDetails);
+  app.get('/stores/list', storesController.listStores);
+  app.post('/stores/add', requireAuth, storesController.addStores);
+  app.get('/stores/delete/:id', requireAuth, storesController.deleteStores);
+  app.post('/stores/update/:id', requireAuth, storesController.updateStores);
   
   // Banners
   app.get('/banners/details/:id', bannersController.getBannerDetails);
