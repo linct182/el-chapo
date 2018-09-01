@@ -3,6 +3,8 @@ const multer = require('multer');
 const cryptoServices = require('../services/crypto');
 const config = require('../config/config.json');
 const path = require('path');
+const SQLize = require('sequelize');
+const Op = SQLize.Op;
 
 module.exports = {
   addProduct(req, res) {
@@ -66,18 +68,31 @@ module.exports = {
     });
   },
   listProducts(req, res) {
+
+    let params = { is_deleted: false, type_id: 1 }
+
+    if (req.query.search) {
+      params = { ...params, name: { [SQLize.Op.iLike]: `%${req.query.search}%`}}
+    }
     return Products
       .findAll({
-        where: { is_deleted: false, type_id: 1 },
+        where: params,
         order: [['id', 'DESC']]
       })
       .then(result => res.status(200).send(result))
       .catch(error => res.status(400).send(error));
   },
   listPromos(req, res) {
+
+    let params = { is_deleted: false, type_id: 2 }
+
+    if (req.query.search) {
+      params = { ...params, name: { [SQLize.Op.iLike]: `%${req.query.search}%` } }
+    }
+
     return Products
       .findAll({
-        where: { is_deleted: false, type_id: 2 },
+        where: params,
         order: [['id', 'DESC']]
       })
       .then(result => res.status(200).send(result))
