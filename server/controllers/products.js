@@ -58,7 +58,8 @@ module.exports = {
           details_image: details_image || '',
           type_id: parseInt(req.body.type_id) || 1,
           promo_expiry: req.body.promo_expiry || null,
-          quantity: req.body.quantity || 0
+          quantity: req.body.quantity || 0,
+          link: req.body.link || ''
         }).then(result => {
           res.status(200).json(result);
         }).catch(err => {
@@ -168,7 +169,8 @@ module.exports = {
               price: req.body.price || 0,
               sale_price: req.body.sale_price || 0,
               promo_expiry: req.body.promo_expiry || null,
-              quantity: req.body.quantity || 0
+              quantity: req.body.quantity || 0,
+              link: req.body.link || ''
             }
 
             if(img_url != '') {

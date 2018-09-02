@@ -35,6 +35,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 0,
     },
+    link: {
+      type: DataTypes.TEXT,
+      defaultValue: '',
+    },
     is_sale: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
