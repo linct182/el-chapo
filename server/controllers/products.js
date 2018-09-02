@@ -85,7 +85,11 @@ module.exports = {
   },
   listPromos(req, res) {
 
-    let params = { is_deleted: false, type_id: 2 }
+    let params = {
+      is_deleted: false,
+      type_id: 2,
+      promo_expiry: { [SQLize.Op.gte]: new Date() }
+    }
 
     if (req.query.search) {
       params = { ...params, name: { [SQLize.Op.iLike]: `%${req.query.search}%` } }
