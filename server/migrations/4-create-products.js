@@ -41,6 +41,10 @@ module.exports = {
         allowNull: true,
         type: Sequelize.DATE,
       },
+      link: {
+        allowNull: true,
+        type: Sequelize.TEXT,
+      },
       is_sale: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
