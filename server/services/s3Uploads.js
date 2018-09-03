@@ -28,6 +28,8 @@ const S3Upload = (caseId, sFileName, sPath, ext, fCallback) => {
             ACL: 'public-read'
         }).then(() => {
             return fCallback(null, true)
+        }).catch((err) => {
+            return fCallback(err, false)
         })
     });
 }

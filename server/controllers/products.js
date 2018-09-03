@@ -1,3 +1,4 @@
+const Promises = require('bluebird');
 const Products = require('../models').products;
 const multer = require('multer');
 const cryptoServices = require('../services/crypto');
@@ -5,6 +6,8 @@ const config = require('../config/config.json');
 const path = require('path');
 const SQLize = require('sequelize');
 const Op = SQLize.Op;
+const s3Upload = require('../services/s3Uploads');
+const fs = Promises.promisifyAll(require('fs'));
 
 module.exports = {
   addProduct(req, res) {
@@ -47,24 +50,36 @@ module.exports = {
             img_url = item.filename;
           }
         });
-
+        const validate = false;
+        const filePath = path.join(__dirname, '../uploads/aaaa.jpg')
         // After successful upload insert product to database
-        return Products.create({
-          name: req.body.name,
-          description: req.body.description,
-          price: req.body.price,
-          sale_price: req.body.sale_price,
-          img_url: img_url || '',
-          details_image: details_image || '',
-          type_id: parseInt(req.body.type_id) || 1,
-          promo_expiry: req.body.promo_expiry || null,
-          quantity: req.body.quantity || 0,
-          link: req.body.link || ''
-        }).then(result => {
-          res.status(200).json(result);
-        }).catch(err => {
-          res.status(500).json(err);
-        });
+        if(validate) {
+
+          s3Upload.s3Upload(caseId, sFileName, filePath, ext, function(err, res){
+            if(err) {
+              console.log(err);
+              // REMOVE FILE ON LOCAL HERE
+              // fs.unlinkAsync 
+              return res.status(400);
+      
+            }
+            res.send();
+
+            fs.unlinkAsync(filePath)
+            .then(() => {
+              console.log('Successfully deleted');
+            }).catch((err)=> console.log(err));
+            
+          });
+
+        } else {
+          
+          console.log('FILE PATH', filePath);
+          fs.unlinkAsync(filePath)
+          .then(() => {
+            console.log('Successfully deleted');
+          }).catch((err)=> console.log(err));
+        }
       }
     });
   },
