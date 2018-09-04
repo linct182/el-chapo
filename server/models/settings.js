@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    admin_email: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   });
   return settings;
 };
