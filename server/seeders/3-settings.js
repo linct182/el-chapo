@@ -6,6 +6,7 @@ module.exports = {
       about_us_title: '',
       about_us_description: '',
       about_us_img: '',
+      admin_email: 'sample@gmail.com',
       createdAt: new Date(),
       updatedAt: new Date()
     }], {}),

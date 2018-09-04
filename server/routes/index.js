@@ -101,6 +101,7 @@ module.exports = (app) => {
   app.get('/settings/list', settingsController.getSettings);
   app.post('/settings/logo', requireAuth, settingsController.updateLogo);
   app.post('/settings/aboutus', requireAuth, settingsController.updateAboutUs);
+  app.post('/settings/updateadmin', requireAuth, settingsController.updateAdminEmail);
 
   // END NG GAMIT NATIN NA API MAC
   

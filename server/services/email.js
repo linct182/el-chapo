@@ -146,22 +146,24 @@ module.exports = {
       };
       return sendGrid.sendMail(mailData);
     },
-    SendAdminMessage(sEmailFrom, sMessage, sName, sSubject) {
+  SendAdminMessage({ admin_email, email, contact_no, address, name, subject, message }) {
       let mailData = {
-        email_to: emailAdmin,
-        name_to: emailFrom,
-        email_from: sEmailFrom,
-        name_from: sName,
-        subject: sSubject,
+        email_to: admin_email,
+        name_to: 'Admin',
+        email_from: email,
+        name_from: name,
+        subject: subject,
         content: `
           <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
             <tr>
               <td bgcolor="#ffffff" style="padding: 40px; border: 1px solid #cacaca;">
                 <h3>Hi, Admin</h3>
-                <p>${sName} (${sEmailFrom}) sent a message containing:</p>
-                <p style="margin-bottom: 32px;">${sMessage}</p>
+                <p>${email} sent a message containing:</p>
+                <p style="margin-bottom: 32px;">${message}</p>
                 <p style="margin-bottom: 0px;">Cheers,</p>
-                <h3 style="margin-top: 3px;">${sName}</h3>
+                <h3 style="margin-top: 3px;">${name}</h3>
+                <p>Contact no: <span style="color: #0000EE">${contact_no}</span></p>
+                <p>Address:  <span style="color: #0000EE">${address}</span></p>
               </td>
             </tr>
           </table>`

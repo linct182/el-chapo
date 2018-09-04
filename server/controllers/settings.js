@@ -146,6 +146,28 @@ module.exports = {
         return res.status(200).send(settings);
       })
       .catch(error => res.status(400).send(error));
+  },
+  updateAdminEmail(req, res) {
+    return Settings
+      .findOne({
+        where: { title: 'settings-1'}
+      })
+      .then(settings => {
+
+        if (!settings) {
+          return res.status(404).send({
+            message: 'Settings Not Found',
+          });
+        }
+
+        return settings
+          .update({
+            admin_email: req.body.admin_email
+          })
+          .then((settings) => res.status(200).send(settings))  // Send back the updated todo.
+          .catch((error) => res.status(400).send(error));
+      })
+      .catch((error) => res.status(400).send(error));
   }
 };
 
